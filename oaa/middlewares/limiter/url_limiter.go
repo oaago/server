@@ -2,12 +2,13 @@ package limiter
 
 import (
 	"errors"
-	"github.com/gin-gonic/gin"
-	"github.com/oaago/component/logx"
-	"github.com/oaago/component/redis"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/oaago/cloud/logx"
+	"github.com/oaago/cloud/redis"
 )
 
 // to be compatible with aliyun redis, we cannot use `local key = KEYS[1]` to reuse the key

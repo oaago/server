@@ -2,13 +2,14 @@ package limiter
 
 import (
 	"fmt"
-	"github.com/go-redis/redis"
-	"github.com/oaago/component/logx"
-	redis2 "github.com/oaago/component/redis"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/go-redis/redis"
+	"github.com/oaago/cloud/logx"
+	redis2 "github.com/oaago/cloud/redis"
 
 	"github.com/gin-gonic/gin"
 )

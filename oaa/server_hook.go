@@ -11,12 +11,12 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/oaago/component/op"
+	"github.com/oaago/cloud/op"
 	"github.com/oaago/server/oaa/utils"
 
-	"github.com/oaago/component/logx"
-	"github.com/oaago/component/mysql"
-	"github.com/oaago/component/redis"
+	"github.com/oaago/cloud/logx"
+	"github.com/oaago/cloud/mysql"
+	"github.com/oaago/cloud/redis"
 	"github.com/oaago/gateway/discovery"
 )
 

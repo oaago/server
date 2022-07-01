@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/oaago/component/logx"
-	"github.com/oaago/component/op"
+	"github.com/oaago/cloud/logx"
+	"github.com/oaago/cloud/op"
 	"github.com/oaago/gateway/discovery"
 	"github.com/oaago/server/oaa/utils"
 	"google.golang.org/grpc"

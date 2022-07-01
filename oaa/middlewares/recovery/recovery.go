@@ -1,10 +1,11 @@
 package recovery
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/oaago/component/logx"
 	"net/http"
 	"runtime/debug"
+
+	"github.com/gin-gonic/gin"
+	"github.com/oaago/cloud/logx"
 )
 
 //Recovery 紧急恢复中间件，可让您构建更好的用户体验

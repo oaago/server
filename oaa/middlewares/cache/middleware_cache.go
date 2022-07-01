@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/oaago/component/redis"
+	"github.com/oaago/cloud/redis"
 	"github.com/oaago/server/oaa"
 )
 
