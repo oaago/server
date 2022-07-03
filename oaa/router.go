@@ -34,6 +34,7 @@ func NewRouter(options *ConfigRouter) *ConfigRouter {
 		router = options.Router
 	} else {
 		router = gin.New()
+		// 直接增加接口文档配置
 		router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	}
 	if len(options.HttpMethod) == 0 {
