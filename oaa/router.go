@@ -34,7 +34,7 @@ func NewRouter(options *ConfigRouter) *ConfigRouter {
 		router = options.Router
 	} else {
 		router = gin.New()
-		router.Router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+		router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	}
 	if len(options.HttpMethod) == 0 {
 		options.HttpMethod = []string{"GET", "POST", "DELETE", "PUT", "OPTIONS", "HEAD", "UPDATE"}
