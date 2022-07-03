@@ -46,7 +46,7 @@ func (hooks *ServerHooks) AfterServerShutdownHook() {
 		hooks.EtcdServer.Stop()
 		logx.Logger.Info("etcdServer服务关闭失败:")
 	} else {
-		logx.Logger.Info("服务关闭失败:", err)
+		logx.Logger.Info("服务关闭成功:", err.Error())
 	}
 	select {
 	case <-ctx.Done():
