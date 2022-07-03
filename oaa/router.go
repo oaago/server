@@ -1,9 +1,12 @@
 package oaa
 
 import (
-	"github.com/gin-gonic/gin"
-	"google.golang.org/grpc"
 	"strings"
+
+	"github.com/gin-gonic/gin"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	"google.golang.org/grpc"
 )
 
 type AddRoute struct {
@@ -31,6 +34,7 @@ func NewRouter(options *ConfigRouter) *ConfigRouter {
 		router = options.Router
 	} else {
 		router = gin.New()
+		router.Router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	}
 	if len(options.HttpMethod) == 0 {
 		options.HttpMethod = []string{"GET", "POST", "DELETE", "PUT", "OPTIONS", "HEAD", "UPDATE"}
