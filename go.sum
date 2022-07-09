@@ -363,8 +363,8 @@ github.com/natefinch/lumberjack v2.0.0+incompatible/go.mod h1:Wi9p2TTF5DG5oU+6Yf
 github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e/go.mod h1:zD1mROLANZcx1PVRCS0qkT7pwLkGfwJo4zjcN/Tysno=
 github.com/nxadm/tail v1.4.8 h1:nPr65rt6Y5JFSKQO7qToXr7pePgD6Gwiw05lkbyAQTE=
 github.com/nxadm/tail v1.4.8/go.mod h1:+ncqLTQzXmGhMZNUePPaPqPvBxHAIsmXswZKocGu+AU=
-github.com/oaago/cloud v0.0.8 h1:oCTyJX3ASZr/me60PfJUadkbdLLhb2L25NAbZgE7KnY=
-github.com/oaago/cloud v0.0.8/go.mod h1:zl4KPgJ7mQ7aik8VQYNuP1NMwvyPbQ6+pKzV1pTBgdc=
+github.com/oaago/cloud v0.0.9-0.20220709102314-1bea6fca5e8b h1:kvydhTTY3h+V04mywqVmhB8PyvMz08MbV1tm0hIkOKc=
+github.com/oaago/cloud v0.0.9-0.20220709102314-1bea6fca5e8b/go.mod h1:zl4KPgJ7mQ7aik8VQYNuP1NMwvyPbQ6+pKzV1pTBgdc=
 github.com/oaago/common v0.0.0-20220619090039-63184afcc085 h1:vLTpcbDiZ0/Zwn8XsUMFl5+DL1cKx0DXCM3nnbH/zJE=
 github.com/oaago/common v0.0.0-20220619090039-63184afcc085/go.mod h1:Btu0RqVVrM1gi4OyH+50I8mekw1d4J1RpfBpyFt8iBU=
 github.com/oaago/gateway v0.0.0-20220619080224-02555976e8ac h1:qElJE3VIZUhtBHCkSahO1gNLn0YpXMSvF66DBIRsJa0=
@@ -435,6 +435,7 @@ github.com/rogpeppe/go-internal v1.8.0/go.mod h1:WmiCO8CzOY8rg0OYDC4/i/2WRWAB6po
 github.com/russross/blackfriday v1.5.2/go.mod h1:JO/DiYxRf+HjHt06OyowR9PTA263kcR/rfWxYHBV53g=
 github.com/russross/blackfriday/v2 v2.0.1/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=
 github.com/satori/go.uuid v1.2.0 h1:0uYX9dsZ2yD7q2RtLRtPSdGDWzjeM3TbMJP9utgA0ww=
+github.com/satori/go.uuid v1.2.0/go.mod h1:dA0hQrYB0VpLJoorglMZABFdXlWrHn1NEOzdhQKdks0=
 github.com/sergi/go-diff v1.2.0 h1:XU+rvMAioB0UC3q1MFrIQy4Vo5/4VsRDQQXHsEya6xQ=
 github.com/sergi/go-diff v1.2.0/go.mod h1:STckp+ISIX8hZLjrqAeVduY0gWCT9IjLuqbuNXdaHfM=
 github.com/shurcooL/sanitized_anchor_name v1.0.0/go.mod h1:1NzhyTcUVG4SuEtjjoZeVRXNmyL/1OwPU0+IJeTBvfc=

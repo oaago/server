@@ -10,7 +10,7 @@ require (
 	github.com/go-playground/validator/v10 v10.11.0
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/hashicorp/go-uuid v1.0.3
-	github.com/oaago/cloud v0.0.8
+	github.com/oaago/cloud v0.0.9-0.20220709102314-1bea6fca5e8b
 	github.com/oaago/gateway v0.0.0-20220619080224-02555976e8ac
 	github.com/pterm/pterm v0.12.41
 	github.com/swaggo/files v0.0.0-20220610200504-28940afbdbfe
@@ -80,6 +80,7 @@ require (
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.8.0 // indirect
+	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
