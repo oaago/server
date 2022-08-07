@@ -4,6 +4,7 @@ import (
 	"net"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/oaago/cloud/logx"
 	"github.com/oaago/cloud/op"
@@ -32,6 +33,7 @@ func Start(ops *ConfigRouter) *OAAServer {
 	}
 	if op.ConfigData.Server.Port == 0 {
 		panic("端口错误")
+		return nil
 	}
 	srv := &OAAServer{
 		HttpServer: &http.Server{
@@ -42,6 +44,7 @@ func Start(ops *ConfigRouter) *OAAServer {
 	logx.Logger.Info("http服务端口是" + strconv.Itoa(op.ConfigData.Server.Port))
 	utils.AppStartPrint()
 	if len(op.ConfigData.Etcd.Endpoints) > 0 && op.ConfigData.Server.RpcPort > 0 {
+		time.Sleep(1 * time.Second)
 		go func() {
 			RpcPort = op.ConfigData.Server.RpcPort
 			listen, err := net.Listen("tcp", ":"+strconv.Itoa(RpcPort))
