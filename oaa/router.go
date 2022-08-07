@@ -14,7 +14,9 @@ type AddRoute struct {
 	Middleware []func(ctx *MidHandlerFunc)
 }
 type Hand []func(ctx *Ctx)
-type Engine *gin.Engine
+type Engine struct {
+	*gin.Engine
+}
 type MapHttpRoute map[string]Hand
 
 type ConfigRouter struct {
@@ -28,7 +30,7 @@ type ConfigRouter struct {
 
 func NewRouter(options *ConfigRouter) *ConfigRouter {
 	var router *gin.Engine
-	options.Engine = router
+	options.Engine.Engine = router
 	if options.Router != nil {
 		router = options.Router
 	} else {
