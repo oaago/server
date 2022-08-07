@@ -36,18 +36,18 @@ func (hooks *ServerHooks) AfterServerShutdownHook() {
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT, syscall.SIGKILL)
 	<-quit
 	logx.Logger.Info("即将关闭服务，请等待...")
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
-	defer cancel()
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	if err := hooks.Server.Shutdown(ctx); err != nil {
 		mysql.CloseAll()
 		logx.Logger.Info("mysql服务关闭失败:")
 		redis.Client.Close()
 		logx.Logger.Info("redis服务关闭失败:")
 		hooks.EtcdServer.Stop()
-		logx.Logger.Info("etcdServer服务关闭失败:")
+		logx.Logger.Info("etcdServer服务关闭失败")
 	} else {
 		logx.Logger.Info("http服务关闭成功")
 	}
+	defer cancel()
 	select {
 	case <-ctx.Done():
 		logx.Logger.Info("已经关闭")

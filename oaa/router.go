@@ -67,6 +67,9 @@ func NewRouter(options *ConfigRouter) *ConfigRouter {
 	}
 	options.Router = router
 	App.Router = options
+	options.Engine = Engine{
+		Engine: router,
+	}
 	return options
 }
 
