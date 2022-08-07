@@ -48,18 +48,16 @@ func Start(ops *ConfigRouter) *OAAServer {
 			if err != nil {
 				logx.Logger.Error("rpc net.Listen err" + err.Error())
 			}
+			srv.EtcdServer = discovery.NewRegister(op.ConfigData.Etcd.Endpoints, logx.Logx)
+			srv.EtcdServer.Register(discovery.Server{
+				Name:    op.ConfigData.Name,
+				Addr:    "0.0.0.0:" + strconv.Itoa(RpcPort),
+				Version: op.ConfigData.Server.Version,
+				Weight:  op.ConfigData.Server.Weight}, 10)
+			logx.Logger.Info(op.ConfigData.Name + " 注册etcd 服务成功")
+			srv.BeforeLoadHook()
 			logx.Logger.Info("rpc服务端口是" + strconv.Itoa(RpcPort))
-			go func() {
-				srv.EtcdServer = discovery.NewRegister(op.ConfigData.Etcd.Endpoints, logx.Logx)
-				srv.EtcdServer.Register(discovery.Server{
-					Name:    op.ConfigData.Name,
-					Addr:    "0.0.0.0:" + strconv.Itoa(RpcPort),
-					Version: op.ConfigData.Server.Version,
-					Weight:  op.ConfigData.Server.Weight}, 10)
-				logx.Logger.Info(op.ConfigData.Name + " 注册etcd 服务成功")
-				srv.BeforeLoadHook()
-				ops.RpcServer.Serve(listen)
-			}()
+			ops.RpcServer.Serve(listen)
 		}()
 	} else {
 		srv.BeforeLoadHook()
