@@ -31,7 +31,7 @@ func NewHooks() *ServerHooks {
 }
 
 func (hooks *ServerHooks) AfterServerShutdownHook() {
-	logx.Logger.Info("服务启动成功 0.0.0.0:" + strconv.Itoa(op.ConfigData.Server.Port))
+	logx.Logger.Info("http服务启动成功 0.0.0.0:" + strconv.Itoa(op.ConfigData.Server.Port))
 	quit := make(chan os.Signal)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT, syscall.SIGKILL)
 	<-quit
@@ -46,7 +46,7 @@ func (hooks *ServerHooks) AfterServerShutdownHook() {
 		hooks.EtcdServer.Stop()
 		logx.Logger.Info("etcdServer服务关闭失败:")
 	} else {
-		logx.Logger.Info("服务关闭成功:", err.Error())
+		logx.Logger.Info("http服务关闭成功")
 	}
 	select {
 	case <-ctx.Done():
@@ -74,7 +74,6 @@ func (s *OAAServer) BeforeLoadHook() {
 
 func (s *OAAServer) AfterLoadHook() {
 	hooks := reflect.TypeOf(NewHooks())
-	logx.Logger.Info(hooks.NumMethod(), "测试")
 	for i := 0; i < hooks.NumMethod(); i++ {
 		field := hooks.Method(i)
 		if strings.Contains(strings.ToLower(field.Name), "afterserver") {

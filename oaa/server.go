@@ -39,15 +39,15 @@ func Start(ops *ConfigRouter) *OAAServer {
 			Handler: ops.Router,
 		},
 	}
+	logx.Logger.Info("http服务端口是" + strconv.Itoa(op.ConfigData.Server.Port))
 	utils.AppStartPrint()
-	if len(op.ConfigData.Etcd.Endpoints) > 0 && op.ConfigData.Server.Port > 0 {
+	if len(op.ConfigData.Etcd.Endpoints) > 0 && op.ConfigData.Server.RpcPort > 0 {
 		go func() {
-			RpcPort = op.ConfigData.Server.Port + 1000
+			RpcPort = op.ConfigData.Server.RpcPort
 			listen, err := net.Listen("tcp", ":"+strconv.Itoa(RpcPort))
 			if err != nil {
 				logx.Logger.Error("rpc net.Listen err" + err.Error())
 			}
-			logx.Logger.Info("http服务端口是" + strconv.Itoa(op.ConfigData.Server.Port))
 			logx.Logger.Info("rpc服务端口是" + strconv.Itoa(RpcPort))
 			go func() {
 				srv.EtcdServer = discovery.NewRegister(op.ConfigData.Etcd.Endpoints, logx.Logx)
@@ -66,7 +66,7 @@ func Start(ops *ConfigRouter) *OAAServer {
 	}
 	go func() {
 		if err := srv.HttpServer.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			logx.Logger.Info("listen: %s\n", err)
+			logx.Logger.Info("http listen: %s\n", err)
 		}
 	}()
 	srv.AfterLoadHook()

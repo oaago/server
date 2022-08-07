@@ -1,12 +1,11 @@
 package oaa
 
 import (
-	"reflect"
-
 	"github.com/gin-gonic/gin"
 	"github.com/oaago/server/oaa/middlewares/limiter"
 	"github.com/oaago/server/oaa/middlewares/recovery"
 	"github.com/oaago/server/oaa/middlewares/tracerid"
+	"reflect"
 )
 
 type Middleware struct {
