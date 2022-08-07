@@ -58,7 +58,7 @@ func Start(ops *ConfigRouter) *OAAServer {
 					Weight:  op.ConfigData.Server.Weight}, 10)
 				logx.Logger.Info(op.ConfigData.Name + " 注册etcd 服务成功")
 				srv.BeforeLoadHook()
-				ops.MapRpcRoute().Serve(listen)
+				ops.RpcServer.Serve(listen)
 			}()
 		}()
 	} else {

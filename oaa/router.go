@@ -26,11 +26,11 @@ type ConfigRouter struct {
 	HttpMethod   []string
 	Middleware   Middleware
 	Router       *gin.Engine
+	RpcServer    *grpc.Server
 }
 
 func NewRouter(options *ConfigRouter) *ConfigRouter {
 	var router *gin.Engine
-	options.Engine.Engine = router
 	if options.Router != nil {
 		router = options.Router
 	} else {
