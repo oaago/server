@@ -42,7 +42,7 @@ func InitTrans(locale string) (err error) {
 		case "zh":
 			err = zhTranslations.RegisterDefaultTranslations(v, Trans)
 		default:
-			err = enTranslations.RegisterDefaultTranslations(v, Trans)
+			err = zhTranslations.RegisterDefaultTranslations(v, Trans)
 		}
 		return
 	}
