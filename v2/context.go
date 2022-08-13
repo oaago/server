@@ -15,6 +15,9 @@ type ReturnType struct {
 }
 
 func (c *Context) Return(code int, data interface{}, message interface{}) {
+	if HttpCode[code] != nil {
+		message = HttpCode[code]
+	}
 	c.JSON(code, ReturnType{
 		Code:    code,
 		Message: message,

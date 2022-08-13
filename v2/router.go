@@ -17,5 +17,9 @@ func NewRouter(options HttpConfig) *HttpEngine {
 	}
 }
 func (h *HttpEngine) Start() {
-	h.Router.Run(h.Options.Host + ":" + strconv.Itoa(h.Options.Port))
+	HttpCode = h.Options.HttpCode
+	err := h.Router.Run(h.Options.Host + ":" + strconv.Itoa(h.Options.Port))
+	if err != nil {
+		panic(err)
+	}
 }

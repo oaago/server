@@ -2,10 +2,11 @@ package v2
 
 import "github.com/gin-gonic/gin"
 
+var HttpCode = make(map[int]interface{})
+
 type HttpEngine struct {
-	Router     *gin.Engine
-	Options    HttpConfig
-	LoadRouter func(HttpEngine)
+	Router  *gin.Engine
+	Options HttpConfig
 }
 
 type HttpConfig struct {
@@ -13,5 +14,5 @@ type HttpConfig struct {
 	Host             string
 	Port             int
 	Name             string
-	LoadRouter       func(HttpEngine)
+	HttpCode         map[int]interface{}
 }
