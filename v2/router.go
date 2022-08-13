@@ -5,18 +5,6 @@ import (
 	"strconv"
 )
 
-type HttpEngine struct {
-	Router  *gin.Engine
-	Options HttpConfig
-}
-
-type HttpConfig struct {
-	GlobalMiddleware []func(ctx *Context)
-	Addr             string
-	Port             int
-	Name             string
-}
-
 func NewRouter(options HttpConfig) *HttpEngine {
 	r := gin.New()
 	// 装载中间件
@@ -29,5 +17,5 @@ func NewRouter(options HttpConfig) *HttpEngine {
 	}
 }
 func (h *HttpEngine) Start() {
-	h.Router.Run(h.Options.Addr + ":" + strconv.Itoa(h.Options.Port))
+	h.Router.Run(h.Options.Host + ":" + strconv.Itoa(h.Options.Port))
 }

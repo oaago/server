@@ -7,7 +7,7 @@ import (
 
 func main() {
 	op := v2.HttpConfig{
-		Addr: "0.0.0.0",
+		Host: "0.0.0.0",
 		Port: 8088,
 	}
 	http := v2.NewRouter(op)
