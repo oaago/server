@@ -10,11 +10,11 @@ type Context struct {
 
 type ReturnType struct {
 	Code    int
-	Message string
+	Message interface{}
 	Data    interface{}
 }
 
-func (c *Context) Return(code int, data interface{}, message string) {
+func (c *Context) Return(code int, data interface{}, message interface{}) {
 	c.JSON(code, ReturnType{
 		Code:    code,
 		Message: message,
