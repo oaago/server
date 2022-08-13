@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"github.com/oaago/server/example/router"
 	"github.com/oaago/server/v2"
 )
 
@@ -11,8 +11,6 @@ func main() {
 		Port: 8088,
 	}
 	http := v2.NewRouter(op)
-	http.Router.GET("/aaa", v2.NewHandler(func(c *v2.Context) {
-		fmt.Print("111")
-	}))
+	router.LoadRouter(http)
 	http.Start()
 }

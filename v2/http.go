@@ -3,8 +3,9 @@ package v2
 import "github.com/gin-gonic/gin"
 
 type HttpEngine struct {
-	Router  *gin.Engine
-	Options HttpConfig
+	Router     *gin.Engine
+	Options    HttpConfig
+	LoadRouter func(HttpEngine)
 }
 
 type HttpConfig struct {
@@ -12,4 +13,5 @@ type HttpConfig struct {
 	Host             string
 	Port             int
 	Name             string
+	LoadRouter       func(HttpEngine)
 }
