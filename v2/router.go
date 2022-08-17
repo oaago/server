@@ -2,6 +2,7 @@ package v2
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/oaago/server/oaa/translator"
 	"strconv"
 )
 
@@ -10,6 +11,19 @@ func NewRouter(options HttpConfig) *HttpEngine {
 	// 装载中间件
 	for _, handlerType := range options.GlobalMiddleware {
 		r.Use(NewHandler(handlerType))
+	}
+	options.Middleware.AddInsideMid()
+	// 装载内置中间件
+	for _, f := range options.Middleware.InsideMiddType {
+		r.Use(f)
+	}
+	// 兼容gin中间件
+	for _, f := range options.Middleware.GinGlobalMiddleware {
+		r.Use(f)
+	}
+	// 框架自动加载中间件
+	for _, f := range options.Middleware.GlobalMiddleware {
+		r.Use(NewHandler(f))
 	}
 	if len(options.Host) == 0 {
 		options.Host = "0.0.0.0"
@@ -23,6 +37,7 @@ func NewRouter(options HttpConfig) *HttpEngine {
 	}
 }
 func (h *HttpEngine) Start() {
+	translator.InitTrans("zh")
 	HttpCode = h.Options.HttpCode
 	err := h.Router.Run(h.Options.Host + ":" + strconv.Itoa(h.Options.Port))
 	if err != nil {

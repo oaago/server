@@ -70,9 +70,12 @@ func (CacheMiddleWare) Cache(c *oaa.Ctx) {
 	if statusCode >= 200 && statusCode <= 300 {
 		resultStr := blw.body.String()
 		r := oaa.Result{}
-		json.Unmarshal([]byte(resultStr), &r)
+		err := json.Unmarshal([]byte(resultStr), &r)
+		if err != nil {
+			return
+		}
 		marshal, _ := json.Marshal(r.Data)
-		SetValue(redisKey, marshal, cacheCondition.TimeUnit*time.Duration(cacheCondition.Duration))
+		SetValue(redisKey, marshal, cacheCondition.TimeUnit*time.Duration(cacheCondition.Duration)) //nolint:errcheck
 	}
 
 }
@@ -87,7 +90,10 @@ func GetValue(key string) (interface{}, error) {
 		return nil, cmdResult.Err()
 	}
 	val := cmdResult.Val()
-	json.Unmarshal([]byte(val), &value)
+	err := json.Unmarshal([]byte(val), &value)
+	if err != nil {
+		return nil, err
+	}
 	return value, nil
 }
 

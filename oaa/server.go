@@ -1,7 +1,6 @@
 package oaa
 
 import (
-	"github.com/oaago/server/oaa/translator"
 	"net"
 	"net/http"
 	"strconv"
@@ -23,7 +22,6 @@ type OAAServer struct {
 }
 
 func Start(ops *ConfigRouter) *OAAServer {
-	translator.InitTrans("zh")
 	var RpcPort int
 	if op.ConfigData == nil {
 		op.ConfigData = &op.Config{}

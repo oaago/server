@@ -10,6 +10,7 @@ type HttpEngine struct {
 }
 
 type HttpConfig struct {
+	Middleware       Middleware
 	GlobalMiddleware []func(ctx *Context)
 	Host             string
 	Port             int
