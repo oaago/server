@@ -1,6 +1,7 @@
 package translator
 
 import (
+	"fmt"
 	"github.com/go-playground/locales/zh"
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
@@ -17,10 +18,10 @@ var (
 // InitTrans 初始化翻译器
 func InitTrans(p interface{}) interface{} {
 	_ = zhs.RegisterDefaultTranslations(validate, trans)
-	validate := validator.New()
 	err := validate.Struct(p)
 	if err != nil {
 		if errors, ok := err.(validator.ValidationErrors); ok {
+			fmt.Println(errors.Error(), errors.Translate(trans))
 			return errors.Translate(trans)
 		}
 	}
