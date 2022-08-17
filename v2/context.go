@@ -9,9 +9,9 @@ type Context struct {
 }
 
 type ReturnType struct {
-	Code    interface{}
-	Message interface{}
-	Data    interface{}
+	Code    interface{} `json:"code"`
+	Message interface{} `json:"message"`
+	Data    interface{} `json:"data"`
 }
 
 func (c *Context) Return(arg ...interface{}) {
