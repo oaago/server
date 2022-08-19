@@ -9,6 +9,10 @@ type HttpEngine struct {
 	Options HttpConfig
 }
 
+type Plugin interface {
+	Install(*HttpEngine)
+}
+
 type HttpConfig struct {
 	Middleware       Middleware
 	GlobalMiddleware []func(ctx *Context)
@@ -16,4 +20,33 @@ type HttpConfig struct {
 	Port             int
 	Name             string
 	HttpCode         map[int]interface{}
+	Plugins          []Plugin
+}
+
+func (h *HttpEngine) AddPlugin(li []Plugin) {
+	h.Options.Plugins = append(h.Options.Plugins, li...)
+}
+
+func (h *HttpEngine) SetPort(port int) {
+	h.Options.Port = port
+}
+
+func (h *HttpEngine) SetMiddleware(mid Middleware) {
+	h.Options.Middleware = mid
+}
+
+//func (h *HttpEngine) AddMiddleware(mid Middleware) {
+//
+//}
+//
+//func (h *HttpEngine) RemoveMiddleware(mid Middleware) {
+//
+//}
+
+func (h *HttpEngine) AddHttpCode(codeMap map[int]interface{}) {
+	if codeMap != nil {
+		for i, i2 := range codeMap {
+			h.Options.HttpCode[i] = i2
+		}
+	}
 }

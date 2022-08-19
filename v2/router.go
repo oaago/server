@@ -37,7 +37,10 @@ func NewRouter(options HttpConfig) *HttpEngine {
 	}
 }
 func (h *HttpEngine) Start() {
-	translator.InitTrans("zh")
+	translator.InitTrans("zh") //nolint:errcheck
+	for _, plugin := range h.Options.Plugins {
+		plugin.Install(h)
+	}
 	HttpCode = h.Options.HttpCode
 	err := h.Router.Run(h.Options.Host + ":" + strconv.Itoa(h.Options.Port))
 	if err != nil {
