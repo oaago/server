@@ -20,6 +20,7 @@ type HttpConfig struct {
 	Port             int
 	Name             string
 	HttpCode         map[int]interface{}
+	BaseUrl          string
 	Plugins          []Plugin
 }
 
@@ -35,13 +36,9 @@ func (h *HttpEngine) SetMiddleware(mid Middleware) {
 	h.Options.Middleware = mid
 }
 
-//func (h *HttpEngine) AddMiddleware(mid Middleware) {
-//
-//}
-//
-//func (h *HttpEngine) RemoveMiddleware(mid Middleware) {
-//
-//}
+func (h *HttpEngine) SetBaseUrl(url string) {
+	h.Options.BaseUrl = url
+}
 
 func (h *HttpEngine) AddHttpCode(codeMap map[int]interface{}) {
 	if codeMap != nil {

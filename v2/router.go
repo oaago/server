@@ -31,19 +31,25 @@ func NewRouter(options HttpConfig) *HttpEngine {
 	if options.Port == 0 {
 		options.Port = 9901
 	}
+	if options.BaseUrl == "" {
+		options.BaseUrl = "/"
+	}
 	return &HttpEngine{
 		Router:  r,
 		Options: options,
 	}
 }
 func (h *HttpEngine) Start() {
-	translator.InitTrans("zh") //nolint:errcheck
+	err := translator.InitTrans("zh")
+	if err != nil {
+		return
+	}
 	for _, plugin := range h.Options.Plugins {
 		plugin.Install(h)
 	}
 	HttpCode = h.Options.HttpCode
-	err := h.Router.Run(h.Options.Host + ":" + strconv.Itoa(h.Options.Port))
-	if err != nil {
-		panic(err)
+	e := h.Router.Run(h.Options.Host + ":" + strconv.Itoa(h.Options.Port))
+	if e != nil {
+		panic(e)
 	}
 }
