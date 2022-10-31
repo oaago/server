@@ -3,12 +3,17 @@ package v2
 import (
 	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
+	"github.com/oaago/server/event"
 	"github.com/oaago/server/oaa/translator"
 	"strconv"
 )
 
 func NewRouter(options HttpConfig) *HttpEngine {
-	options.EventBus.Publish("readyRouter")
+	var bus event.Event
+	if options.EventBus == nil {
+		bus = event.NewEvent()
+	}
+	bus.Publish("initRouter")
 	r := gin.New()
 	// 装载中间件
 	for _, handlerType := range options.GlobalMiddleware {
