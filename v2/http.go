@@ -1,6 +1,9 @@
 package v2
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/oaago/server/v2/event"
+)
 
 var HttpCode = make(map[int]interface{})
 
@@ -22,6 +25,7 @@ type HttpConfig struct {
 	HttpCode         map[int]interface{}
 	BaseUrl          string
 	Plugins          []Plugin
+	EventBus         event.Event
 }
 
 func (h *HttpEngine) AddPlugin(li []Plugin) {
