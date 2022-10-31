@@ -1,8 +1,13 @@
 package v2
 
 import (
+	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
-	"github.com/oaago/server/event"
+	"github.com/oaago/server/v2/event"
+	"github.com/oaago/server/v2/translator"
+	"log"
+	"strconv"
+	"syscall"
 )
 
 var HttpCode = make(map[int]interface{})
@@ -49,5 +54,33 @@ func (h *HttpEngine) AddHttpCode(codeMap map[int]interface{}) {
 		for i, i2 := range codeMap {
 			h.Options.HttpCode[i] = i2
 		}
+	}
+}
+
+func (h *HttpEngine) Start() {
+	err := translator.InitTrans("zh")
+	if err != nil {
+		return
+	}
+	for _, plugin := range h.Options.Plugins {
+		plugin.Install(h)
+	}
+	HttpCode = h.Options.HttpCode
+	go func() {
+		h.Options.EventBus.Publish("startEnd")
+	}()
+	//e := h.Router.Run(h.Options.Host + ":" + strconv.Itoa(h.Options.Port))
+	server := endless.NewServer(h.Options.Host+":"+strconv.Itoa(h.Options.Port), h.Router)
+	server.BeforeBegin = func(add string) {
+		h.Options.EventBus.Publish("BeforeStartServer")
+		App.LifeCycle.BeforeAppStart()
+		log.Printf("Actual pid is %d", syscall.Getpid())
+	}
+	e := server.ListenAndServe()
+	if e != nil {
+		go func() {
+			h.Options.EventBus.Publish("startError")
+		}()
+		//panic(e)
 	}
 }
