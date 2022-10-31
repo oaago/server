@@ -15,7 +15,7 @@ func NewRouter(options HttpConfig) *HttpEngine {
 	for _, handlerType := range options.GlobalMiddleware {
 		r.Use(NewHandler(handlerType))
 	}
-	//options.Middleware.AddInsideMid()
+	options.Middleware.AddInsideMid()
 	// 装载内置中间件
 	for _, f := range options.Middleware.InsideMiddType {
 		r.Use(f)
