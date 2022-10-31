@@ -8,7 +8,7 @@ import (
 )
 
 func NewRouter(options HttpConfig) *HttpEngine {
-	options.EventBus.Publish("readyRouter", options)
+	options.EventBus.Publish("readyRouter")
 	r := gin.New()
 	// 装载中间件
 	for _, handlerType := range options.GlobalMiddleware {
@@ -51,14 +51,14 @@ func (h *HttpEngine) Start() {
 	}
 	HttpCode = h.Options.HttpCode
 	go func() {
-		h.Options.EventBus.Publish("startEnd", h.Options)
+		h.Options.EventBus.Publish("startEnd")
 	}()
 	//e := h.Router.Run(h.Options.Host + ":" + strconv.Itoa(h.Options.Port))
 	server := endless.NewServer(h.Options.Host+":"+strconv.Itoa(h.Options.Port), h.Router)
 	e := server.ListenAndServe()
 	if e != nil {
 		go func() {
-			h.Options.EventBus.Publish("startError", h.Options, e)
+			h.Options.EventBus.Publish("startError")
 		}()
 		//panic(e)
 	}
