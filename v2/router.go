@@ -9,11 +9,10 @@ import (
 )
 
 func NewRouter(options HttpConfig) *HttpEngine {
-	var bus event.Event
 	if options.EventBus == nil {
-		bus = event.NewEvent()
+		options.EventBus = event.NewEvent()
 	}
-	bus.Publish("initRouter")
+	options.EventBus.Publish("initRouter")
 	r := gin.New()
 	// 装载中间件
 	for _, handlerType := range options.GlobalMiddleware {
