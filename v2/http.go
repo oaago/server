@@ -32,10 +32,15 @@ type HttpConfig struct {
 	BaseUrl          string
 	Plugins          []Plugin
 	EventBus         event.Event
+	Interceptor      []func(ctx *Context)
 }
 
 func (h *HttpEngine) AddPlugin(li []Plugin) {
 	h.Options.Plugins = append(h.Options.Plugins, li...)
+}
+
+func (h *HttpEngine) AddInterceptor(li []func(ctx *Context)) {
+	h.Options.Interceptor = append(h.Options.Interceptor, li...)
 }
 
 func (h *HttpEngine) SetPort(port int) {

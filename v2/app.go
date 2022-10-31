@@ -34,7 +34,7 @@ type LifeCycleType struct {
 
 var App *Application
 
-func (app *Application) CreateApp() *Application {
+func (app *Application) Create() *Application {
 	app.EventBus = event.NewEvent()
 
 	if app.LifeCycle.BeforeLoadConfig != nil {
