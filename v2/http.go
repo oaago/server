@@ -2,7 +2,7 @@ package v2
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/oaago/server/v2/event"
+	"github.com/oaago/server/event"
 )
 
 var HttpCode = make(map[int]interface{})

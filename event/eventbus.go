@@ -9,8 +9,6 @@ type BusPublisher evbus.BusPublisher
 type BusSubscriber evbus.BusSubscriber
 type BusController evbus.BusController
 
-var EventBus Event
-
-func init() {
-	EventBus = evbus.New()
+func NewEvent() Event {
+	return evbus.New()
 }
