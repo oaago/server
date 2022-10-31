@@ -1,12 +1,14 @@
 package v2
 
 import (
+	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
 	"github.com/oaago/server/oaa/translator"
 	"strconv"
 )
 
 func NewRouter(options HttpConfig) *HttpEngine {
+	EventBus.Publish("readyRouter", options)
 	r := gin.New()
 	// 装载中间件
 	for _, handlerType := range options.GlobalMiddleware {
@@ -48,8 +50,16 @@ func (h *HttpEngine) Start() {
 		plugin.Install(h)
 	}
 	HttpCode = h.Options.HttpCode
-	e := h.Router.Run(h.Options.Host + ":" + strconv.Itoa(h.Options.Port))
+	go func() {
+		EventBus.Publish("startEnd", h.Options)
+	}()
+	//e := h.Router.Run(h.Options.Host + ":" + strconv.Itoa(h.Options.Port))
+	server := endless.NewServer(h.Options.Host+":"+strconv.Itoa(h.Options.Port), h.Router)
+	e := server.ListenAndServe()
 	if e != nil {
+		go func() {
+			EventBus.Publish("startError", h.Options)
+		}()
 		panic(e)
 	}
 }
