@@ -1,4 +1,4 @@
-package v2
+package event
 
 import (
 	evbus "github.com/asaskevich/EventBus"
