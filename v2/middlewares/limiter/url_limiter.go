@@ -59,7 +59,7 @@ type (
 )
 
 func NewRateLimiterUrl(c *gin.Context) {
-	// seconds 窗口时常  请求限流quota
+	// seconds 窗口时常  请求限流quota 没有redis不能使用
 	if redis.RedisClient.Client != nil {
 		key := "oaaPeriodLimit:url:" + c.Request.Host + ":" + c.Request.Method + ":" + c.Request.URL.String()
 		val, err := redis.RedisClient.Client.Get(key).Result()
