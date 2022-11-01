@@ -11,12 +11,14 @@ func NewRouter(options HttpConfig) *HttpEngine {
 	}
 	options.EventBus.Publish("initRouter")
 	r := gin.New()
-	// 装载中间件
+	// 装载全局中间件以及拦截器，拦截器等同于全局中间件
+	options.GlobalMiddleware = append(options.GlobalMiddleware, options.Interceptor...)
 	for _, handlerType := range options.GlobalMiddleware {
 		r.Use(NewHandler(handlerType))
 	}
-	options.Middleware.AddInsideMid()
 	// 装载内置中间件
+	options.Middleware.InitMid()
+	// 自定义中间件
 	for _, f := range options.Middleware.InsideMiddType {
 		r.Use(f)
 	}

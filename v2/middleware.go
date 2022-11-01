@@ -26,12 +26,6 @@ var Middlewares Middleware
 
 type InsideMiddType []func(ctx *gin.Context)
 
-func (m *Middleware) AddInsideMid() {
-	m.InsideMiddType = []func(ctx *gin.Context){
-		limiter.CookiesLimiter,    // cookies
-		recovery.Recovery,         // 错误处理
-		tracerid.TracerId,         // 生成唯一id
-		limiter.NewRateLimiterIp,  // 用户标识限流
-		limiter.NewRateLimiterUrl, // url 限流
-	}
+func (m *Middleware) InitMid() {
+	m.GinGlobalMiddleware = append(m.GinGlobalMiddleware, limiter.CookiesLimiter, recovery.Recovery, tracerid.TracerId, limiter.NewRateLimiterIp, limiter.NewRateLimiterUrl)
 }

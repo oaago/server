@@ -41,8 +41,9 @@ func NewRouter(options *ConfigRouter) *ConfigRouter {
 	if len(options.HttpMethod) == 0 {
 		options.HttpMethod = []string{"GET", "POST", "DELETE", "PUT", "OPTIONS", "HEAD", "UPDATE"}
 	}
-	options.Middleware.AddInsideMid()
 	// 装载内置中间件
+	options.Middleware.InitMid()
+	// 加载自定义中间件
 	for _, f := range options.Middleware.InsideMiddType {
 		router.Use(f)
 	}

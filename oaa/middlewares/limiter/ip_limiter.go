@@ -15,6 +15,9 @@ import (
 )
 
 func NewRateLimiterIp(c *gin.Context) {
+	if redis2.RedisClient.Client == nil {
+		c.Next()
+	}
 	redisClient := redis2.RedisClient.Client
 	// 获取Ip白名单
 	ipstr := ""
