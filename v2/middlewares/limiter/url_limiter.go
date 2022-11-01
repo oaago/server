@@ -61,43 +61,42 @@ type (
 func NewRateLimiterUrl(c *gin.Context) {
 	// seconds 窗口时常  请求限流quota
 	if redis.RedisClient.Client == nil {
-		c.Next()
-	}
-	key := "oaaPeriodLimit:url:" + c.Request.Host + ":" + c.Request.Method + ":" + c.Request.URL.String()
-	val, err := redis.RedisClient.Client.Get(key).Result()
-	if err != nil {
-		logx.Logger.Error(err.Error())
-		c.Next()
-	}
-	if len(val) > 0 {
-		//格式 时间/速率
-		arg := strings.Split(val, ":")
-		if len(arg) == 2 {
-			period, _ := strconv.Atoi(arg[1])
-			quota, _ := strconv.Atoi(arg[0])
-			// quota/period 量/时间
-			limit := newPeriodLimit(period, quota, redis.RedisClient, key)
-			take, _ := limit.Take(key)
-			switch take {
-			case OverQuota:
-				logx.Logger.Info("OverQuota key: %v")
-				c.Data(500, "application/json; charset=utf-8", []byte(c.Request.URL.String()+"请求超频:OverQuota"))
-				logx.Logger.Info("OverQuota key:"+key, "请求超频 稍后重试")
-				c.Abort()
-			case Allowed:
-				c.Next()
-			case HitQuota:
-				logx.Logger.Info("HitQuota key: %v")
-				c.Data(500, "application/json; charset=utf-8", []byte(c.Request.URL.String()+"请求超频:HitQuota"))
-				logx.Logger.Info("HitQuota key:"+key, "请求超频 稍后重试")
-				c.Abort()
-			default:
-				logx.Logger.Info("DefaultQuota key: %v")
-				c.Next()
+		key := "oaaPeriodLimit:url:" + c.Request.Host + ":" + c.Request.Method + ":" + c.Request.URL.String()
+		val, err := redis.RedisClient.Client.Get(key).Result()
+		if err != nil {
+			logx.Logger.Error(err.Error())
+			c.Next()
+		}
+		if len(val) > 0 {
+			//格式 时间/速率
+			arg := strings.Split(val, ":")
+			if len(arg) == 2 {
+				period, _ := strconv.Atoi(arg[1])
+				quota, _ := strconv.Atoi(arg[0])
+				// quota/period 量/时间
+				limit := newPeriodLimit(period, quota, redis.RedisClient, key)
+				take, _ := limit.Take(key)
+				switch take {
+				case OverQuota:
+					logx.Logger.Info("OverQuota key: %v")
+					c.Data(500, "application/json; charset=utf-8", []byte(c.Request.URL.String()+"请求超频:OverQuota"))
+					logx.Logger.Info("OverQuota key:"+key, "请求超频 稍后重试")
+					c.Abort()
+				case Allowed:
+					c.Next()
+				case HitQuota:
+					logx.Logger.Info("HitQuota key: %v")
+					c.Data(500, "application/json; charset=utf-8", []byte(c.Request.URL.String()+"请求超频:HitQuota"))
+					logx.Logger.Info("HitQuota key:"+key, "请求超频 稍后重试")
+					c.Abort()
+				default:
+					logx.Logger.Info("DefaultQuota key: %v")
+					c.Next()
+				}
 			}
 		}
+		c.Next()
 	}
-	c.Next()
 }
 
 // NewPeriodLimit returns a PeriodLimit with given parameters.
