@@ -1,8 +1,8 @@
-package v2
+package http
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/oaago/server/v2/event"
+	"github.com/oaago/server/v2/http/event"
 )
 
 func NewRouter(options HttpConfig) *HttpEngine {

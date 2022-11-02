@@ -1,10 +1,10 @@
-package v2
+package http
 
 import (
 	"github.com/gin-gonic/gin"
-	limiter2 "github.com/oaago/server/v2/middlewares/limiter"
-	"github.com/oaago/server/v2/middlewares/recovery"
-	"github.com/oaago/server/v2/middlewares/tracerid"
+	"github.com/oaago/server/v2/http/middlewares/limiter"
+	"github.com/oaago/server/v2/http/middlewares/recovery"
+	"github.com/oaago/server/v2/http/middlewares/tracerid"
 )
 
 type Middleware struct {
@@ -27,5 +27,5 @@ var Middlewares Middleware
 type InsideMiddType []func(ctx *gin.Context)
 
 func (m *Middleware) InitMid() {
-	m.GinGlobalMiddleware = append(m.GinGlobalMiddleware, limiter2.CookiesLimiter, recovery.Recovery, tracerid.TracerId, limiter2.NewRateLimiterIp, limiter2.NewRateLimiterUrl)
+	m.GinGlobalMiddleware = append(m.GinGlobalMiddleware, limiter.CookiesLimiter, recovery.Recovery, tracerid.TracerId, limiter.NewRateLimiterIp, limiter.NewRateLimiterUrl)
 }

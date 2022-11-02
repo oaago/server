@@ -11,10 +11,12 @@ require (
 	github.com/go-playground/universal-translator v0.18.0
 	github.com/go-playground/validator/v10 v10.11.0
 	github.com/go-redis/redis v6.15.9+incompatible
+	github.com/googollee/go-socket.io v1.6.2
 	github.com/hashicorp/go-uuid v1.0.3
 	github.com/jinzhu/copier v0.3.5
-	github.com/oaago/cloud v0.1.8
+	github.com/oaago/cloud v0.1.9
 	github.com/oaago/gateway v0.0.0-20220619080224-02555976e8ac
+	github.com/olahol/melody v1.1.1
 	github.com/pterm/pterm v0.12.41
 	github.com/swaggo/files v0.0.0-20220610200504-28940afbdbfe
 	github.com/swaggo/gin-swagger v1.5.0
@@ -49,11 +51,14 @@ require (
 	github.com/gobuffalo/packd v0.3.0 // indirect
 	github.com/gobuffalo/packr v1.30.1 // indirect
 	github.com/goccy/go-json v0.9.7 // indirect
+	github.com/gofrs/uuid v4.0.0+incompatible // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-module/carbon v1.6.8 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
+	github.com/gomodule/redigo v1.8.4 // indirect
 	github.com/gookit/color v1.5.0 // indirect
+	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/hashicorp/errwrap v1.0.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect

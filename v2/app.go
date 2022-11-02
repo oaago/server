@@ -4,7 +4,8 @@ import (
 	"github.com/jinzhu/copier"
 	"github.com/oaago/cloud/op"
 	"github.com/oaago/cloud/preload"
-	"github.com/oaago/server/v2/event"
+	"github.com/oaago/server/v2/http"
+	"github.com/oaago/server/v2/http/event"
 	"time"
 )
 
@@ -15,7 +16,7 @@ type Application struct {
 	StartTime time.Duration
 	EventBus  event.Event
 	LifeCycle LifeCycleType
-	*HttpEngine
+	*http.HttpEngine
 	RpcEngine interface{}
 	Start     func()
 }
@@ -49,11 +50,11 @@ func (app *Application) Create() *Application {
 	if app.LifeCycle.BeforeLoadRouter != nil {
 		app.LifeCycle.BeforeLoadRouter()
 	}
-	httpOptions := HttpConfig{
+	httpOptions := http.HttpConfig{
 		Port:     op.ConfigData.Server.Port,
 		EventBus: app.EventBus,
 	}
-	httpRouter := NewRouter(httpOptions)
+	httpRouter := http.NewRouter(httpOptions)
 	if app.LifeCycle.AfterLoadRouter != nil {
 		app.LifeCycle.AfterLoadRouter()
 	}
