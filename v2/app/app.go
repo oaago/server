@@ -35,7 +35,7 @@ func (app *Application) Create() *types.Application {
 		app.LifeCycle.AfterLoadRouter()
 	}
 	app.Start = httpRouter.Start
-	app.HttpEngine = httpRouter
+	app.HttpEngine = (*types.HttpEngine)(httpRouter)
 	app.Config = op.ConfigData
 	types.App = (*types.Application)(app)
 	return types.App
