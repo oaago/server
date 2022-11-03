@@ -23,6 +23,9 @@ func InitSocket(r *gin.Engine) {
 		r.GET(baseUrl, func(c *gin.Context) {
 			m.HandleRequest(c.Writer, c.Request)
 		})
+		r.POST(baseUrl, func(c *gin.Context) {
+			m.HandleRequest(c.Writer, c.Request)
+		})
 	} else {
 		logx.Logger.Info("不支持。。。")
 	}
