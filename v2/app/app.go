@@ -4,7 +4,7 @@ import (
 	"github.com/jinzhu/copier"
 	"github.com/oaago/cloud/op"
 	"github.com/oaago/cloud/preload"
-	"github.com/oaago/server/v2/http"
+	"github.com/oaago/server/v2/http/core"
 	"github.com/oaago/server/v2/http/event"
 	"github.com/oaago/server/v2/types"
 )
@@ -30,7 +30,7 @@ func (app *Application) Create() *types.Application {
 		Port:     op.ConfigData.Server.Port,
 		EventBus: app.EventBus,
 	}
-	httpRouter := http.NewRouter(httpOptions)
+	httpRouter := core.NewRouter(httpOptions)
 	if app.LifeCycle.AfterLoadRouter != nil {
 		app.LifeCycle.AfterLoadRouter()
 	}

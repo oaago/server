@@ -1,4 +1,4 @@
-package http
+package core
 
 import "github.com/oaago/server/v2/types"
 

@@ -4,7 +4,6 @@ import (
 	evbus "github.com/asaskevich/EventBus"
 	"github.com/gin-gonic/gin"
 	"github.com/oaago/cloud/op"
-	"github.com/oaago/server/v2/http"
 	"time"
 )
 
@@ -20,7 +19,7 @@ type Application struct {
 	StartTime time.Duration
 	EventBus  Event
 	LifeCycle LifeCycleType
-	*http.HttpEngine
+	*HttpEngine
 	RpcEngine interface{}
 	Start     func()
 }
@@ -65,6 +64,7 @@ type MiddlewareMap struct {
 }
 
 var Middlewares Middleware
+
 type HttpConfig struct {
 	Middleware       Middleware
 	GlobalMiddleware []func(ctx *Context)
