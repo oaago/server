@@ -49,9 +49,24 @@ type HttpEngine struct {
 type Plugin interface {
 	Install(*HttpEngine)
 }
+type Middleware struct {
+	GlobalMiddleware    []func(ctx *Context)
+	PartMiddleware      []func(ctx *Context)
+	GinGlobalMiddleware []func(*gin.Context)
+	InsideMiddType      []func(*gin.Context)
+}
+type GlobalMiddleware struct{}
+type PartMiddleware struct{}
+type GinGlobalMiddleware struct{}
+type MiddlewareMap struct {
+	GlobalMiddleware
+	PartMiddleware
+	GinGlobalMiddleware
+}
 
+var Middlewares Middleware
 type HttpConfig struct {
-	Middleware       http.Middleware
+	Middleware       Middleware
 	GlobalMiddleware []func(ctx *Context)
 	Host             string
 	Port             int
@@ -74,7 +89,6 @@ type ReturnType struct {
 }
 
 type InsideMiddType []func(ctx *gin.Context)
-
 
 type HandlerType gin.HandlerFunc
 

@@ -8,7 +8,9 @@ import (
 	"github.com/oaago/server/v2/http/event"
 	"github.com/oaago/server/v2/types"
 )
+
 type Application types.Application
+
 func (app *Application) Create() *types.Application {
 	app.EventBus = event.NewEvent()
 

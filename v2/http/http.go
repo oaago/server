@@ -25,7 +25,7 @@ func (h *HttpEngine) SetPort(port int) {
 	h.Options.Port = port
 }
 
-func (h *HttpEngine) SetMiddleware(mid Middleware) {
+func (h *HttpEngine) SetMiddleware(mid types.Middleware) {
 	h.Options.Middleware = mid
 }
 

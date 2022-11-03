@@ -18,7 +18,7 @@ func NewRouter(options types.HttpConfig) *HttpEngine {
 		r.Use(NewHandler(handlerType))
 	}
 	// 装载内置中间件
-	options.Middleware.InitMid()
+	InitMid(&options.Middleware)
 	// 自定义中间件
 	for _, f := range options.Middleware.InsideMiddType {
 		r.Use(f)
