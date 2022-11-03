@@ -2,12 +2,13 @@ package core
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/oaago/server/v2/types"
 )
 
-func NewHandler(f func(c *Context)) func(*gin.Context) {
+func NewHandler(f func(c *types.Context)) func(*gin.Context) {
 	return func(context *gin.Context) {
 		m := &Context{}
 		m.Context = context
-		f(m)
+		f((*types.Context)(m))
 	}
 }
