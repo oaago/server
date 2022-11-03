@@ -4,7 +4,7 @@ import "github.com/oaago/server/v2/types"
 
 type Context types.Context
 
-func (c *Context) Return(arg ...interface{}) {
+func (c Context) Return(arg ...interface{}) {
 	var code = 200
 	var message interface{}
 	var data interface{}
