@@ -1,10 +1,6 @@
-package core
+package types
 
-import "github.com/oaago/server/v2/types"
-
-type Context types.Context
-
-func (c Context) Return(arg ...interface{}) {
+func (c *Context) Return(arg ...interface{}) {
 	var code = 200
 	var message interface{}
 	var data interface{}
@@ -18,10 +14,10 @@ func (c Context) Return(arg ...interface{}) {
 			data = value
 		}
 	}
-	if types.HttpCode[code] != nil {
-		message = types.HttpCode[code]
+	if HttpCode[code] != nil {
+		message = HttpCode[code]
 	}
-	c.JSON(code, types.ReturnType{
+	c.JSON(code, ReturnType{
 		Code:    code,
 		Message: message,
 		Data:    data,

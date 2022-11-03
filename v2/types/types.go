@@ -49,8 +49,8 @@ type Plugin interface {
 	Install(*HttpEngine)
 }
 type Middleware struct {
-	GlobalMiddleware    []func(ctx *Context)
-	PartMiddleware      []func(ctx *Context)
+	GlobalMiddleware    []func(*Context)
+	PartMiddleware      []func(*Context)
 	GinGlobalMiddleware []func(*gin.Context)
 	InsideMiddType      []func(*gin.Context)
 }
@@ -88,7 +88,7 @@ type ReturnType struct {
 	Data    interface{} `json:"data"`
 }
 
-type InsideMiddType []func(ctx *gin.Context)
+type InsideMiddType []func(*gin.Context)
 
 type HandlerType gin.HandlerFunc
 
