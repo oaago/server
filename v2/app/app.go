@@ -6,36 +6,10 @@ import (
 	"github.com/oaago/cloud/preload"
 	"github.com/oaago/server/v2/http"
 	"github.com/oaago/server/v2/http/event"
-	"time"
+	"github.com/oaago/server/v2/types"
 )
-
-type Application struct {
-	AppId     string
-	AppName   string
-	Config    *op.Config
-	StartTime time.Duration
-	EventBus  event.Event
-	LifeCycle LifeCycleType
-	*http.HttpEngine
-	RpcEngine interface{}
-	Start     func()
-}
-
-type LifeCycleType struct {
-	BeforeLoadConfig func()
-	AfterLoadConfig  func(*op.Config)
-	BeforeLoadRouter func()
-	AfterLoadRouter  func()
-	BeforeHttpRun    func(*op.Config)
-	AfterHttpRun     func(*op.Config)
-	BeforeAppStart   func()
-	AfterAppStart    func()
-	ExitApp          func()
-}
-
-var App *Application
-
-func (app *Application) Create() *Application {
+type Application types.Application
+func (app *Application) Create() *types.Application {
 	app.EventBus = event.NewEvent()
 
 	if app.LifeCycle.BeforeLoadConfig != nil {
@@ -50,7 +24,7 @@ func (app *Application) Create() *Application {
 	if app.LifeCycle.BeforeLoadRouter != nil {
 		app.LifeCycle.BeforeLoadRouter()
 	}
-	httpOptions := http.HttpConfig{
+	httpOptions := types.HttpConfig{
 		Port:     op.ConfigData.Server.Port,
 		EventBus: app.EventBus,
 	}
@@ -61,6 +35,6 @@ func (app *Application) Create() *Application {
 	app.Start = httpRouter.Start
 	app.HttpEngine = httpRouter
 	app.Config = op.ConfigData
-	App = app
-	return app
+	types.App = (*types.Application)(app)
+	return types.App
 }

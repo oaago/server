@@ -1,18 +1,8 @@
 package http
 
-import (
-	"github.com/gin-gonic/gin"
-)
+import "github.com/oaago/server/v2/types"
 
-type Context struct {
-	*gin.Context
-}
-
-type ReturnType struct {
-	Code    interface{} `json:"code"`
-	Message interface{} `json:"message"`
-	Data    interface{} `json:"data"`
-}
+type Context types.Context
 
 func (c *Context) Return(arg ...interface{}) {
 	var code = 200
@@ -28,10 +18,10 @@ func (c *Context) Return(arg ...interface{}) {
 			data = value
 		}
 	}
-	if HttpCode[code] != nil {
-		message = HttpCode[code]
+	if types.HttpCode[code] != nil {
+		message = types.HttpCode[code]
 	}
-	c.JSON(code, ReturnType{
+	c.JSON(code, types.ReturnType{
 		Code:    code,
 		Message: message,
 		Data:    data,

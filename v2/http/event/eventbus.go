@@ -2,13 +2,9 @@ package event
 
 import (
 	evbus "github.com/asaskevich/EventBus"
+	"github.com/oaago/server/v2/types"
 )
 
-type Event evbus.Bus
-type BusPublisher evbus.BusPublisher
-type BusSubscriber evbus.BusSubscriber
-type BusController evbus.BusController
-
-func NewEvent() Event {
+func NewEvent() types.Event {
 	return evbus.New()
 }

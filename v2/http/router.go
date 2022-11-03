@@ -3,9 +3,10 @@ package http
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/oaago/server/v2/http/event"
+	"github.com/oaago/server/v2/types"
 )
 
-func NewRouter(options HttpConfig) *HttpEngine {
+func NewRouter(options types.HttpConfig) *HttpEngine {
 	if options.EventBus == nil {
 		options.EventBus = event.NewEvent()
 	}

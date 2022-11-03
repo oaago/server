@@ -2,9 +2,7 @@ package http
 
 import (
 	"github.com/fvbock/endless"
-	"github.com/gin-gonic/gin"
 	"github.com/oaago/cloud/logx"
-	"github.com/oaago/server/v2/http/event"
 	"github.com/oaago/server/v2/http/translator"
 	"github.com/oaago/server/v2/socket"
 	"github.com/oaago/server/v2/types"
@@ -13,35 +11,13 @@ import (
 	"syscall"
 )
 
-var HttpCode = make(map[int]interface{})
+type HttpEngine types.HttpEngine
 
-type HttpEngine struct {
-	Router  *gin.Engine
-	Options HttpConfig
-}
-
-type Plugin interface {
-	Install(*HttpEngine)
-}
-
-type HttpConfig struct {
-	Middleware       Middleware
-	GlobalMiddleware []func(ctx *Context)
-	Host             string
-	Port             int
-	Name             string
-	HttpCode         map[int]interface{}
-	BaseUrl          string
-	Plugins          []Plugin
-	EventBus         event.Event
-	Interceptor      []func(ctx *Context)
-}
-
-func (h *HttpEngine) AddPlugin(li []Plugin) {
+func (h *HttpEngine) AddPlugin(li []types.Plugin) {
 	h.Options.Plugins = append(h.Options.Plugins, li...)
 }
 
-func (h *HttpEngine) AddInterceptor(li []func(ctx *Context)) {
+func (h *HttpEngine) AddInterceptor(li []func(ctx *types.Context)) {
 	h.Options.Interceptor = append(h.Options.Interceptor, li...)
 }
 
@@ -71,9 +47,9 @@ func (h *HttpEngine) Start() {
 		return
 	}
 	for _, plugin := range h.Options.Plugins {
-		plugin.Install(h)
+		plugin.Install((*types.HttpEngine)(h))
 	}
-	HttpCode = h.Options.HttpCode
+	types.HttpCode = h.Options.HttpCode
 	go func() {
 		h.Options.EventBus.Publish("startEnd")
 	}()

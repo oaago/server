@@ -5,11 +5,12 @@ import (
 	"github.com/oaago/server/v2/http/middlewares/limiter"
 	"github.com/oaago/server/v2/http/middlewares/recovery"
 	"github.com/oaago/server/v2/http/middlewares/tracerid"
+	"github.com/oaago/server/v2/types"
 )
 
 type Middleware struct {
-	GlobalMiddleware    []func(ctx *Context)
-	PartMiddleware      []func(ctx *Context)
+	GlobalMiddleware    []func(ctx *types.Context)
+	PartMiddleware      []func(ctx *types.Context)
 	GinGlobalMiddleware []func(*gin.Context)
 	InsideMiddType      []func(*gin.Context)
 }
