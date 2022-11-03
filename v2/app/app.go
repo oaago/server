@@ -1,4 +1,4 @@
-package v2
+package app
 
 import (
 	"github.com/jinzhu/copier"

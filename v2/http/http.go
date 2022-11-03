@@ -4,7 +4,7 @@ import (
 	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
 	"github.com/oaago/cloud/logx"
-	"github.com/oaago/server/v2"
+	"github.com/oaago/server/v2/app"
 	"github.com/oaago/server/v2/http/event"
 	"github.com/oaago/server/v2/http/translator"
 	"github.com/oaago/server/v2/socket"
@@ -81,8 +81,8 @@ func (h *HttpEngine) Start() {
 	server := endless.NewServer(h.Options.Host+":"+strconv.Itoa(h.Options.Port), h.Router)
 	server.BeforeBegin = func(add string) {
 		h.Options.EventBus.Publish("BeforeStartServer")
-		if v2.App.LifeCycle.BeforeAppStart != nil {
-			v2.App.LifeCycle.BeforeAppStart()
+		if app.App.LifeCycle.BeforeAppStart != nil {
+			app.App.LifeCycle.BeforeAppStart()
 		}
 		log.Printf("Actual pid is %d", syscall.Getpid())
 	}
