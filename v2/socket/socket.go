@@ -19,7 +19,7 @@ func InitSocket(r *gin.Engine) {
 		return
 	}
 	if op.ConfigData.Socket.Types == "socketio" {
-		baseUrl := op.ConfigData.Socket.BaseUrl
+		//baseUrl := op.ConfigData.Socket.BaseUrl
 		socketConfig := &engineio.Options{
 			PingTimeout:  7 * time.Second,
 			PingInterval: 5 * time.Second,
@@ -40,8 +40,8 @@ func InitSocket(r *gin.Engine) {
 			},
 		}
 		socket := socketio.NewServer(socketConfig)
-		r.GET(baseUrl, gin.WrapH(socket))
-		r.POST(baseUrl, gin.WrapH(socket))
+		r.GET("/socket.io/*any", gin.WrapH(socket))
+		r.POST("/socket.io/*any", gin.WrapH(socket))
 	} else if op.ConfigData.Socket.Types == "ws" {
 		baseUrl := op.ConfigData.Socket.BaseUrl
 		m := melody.New()
