@@ -6,7 +6,7 @@ import (
 	"github.com/oaago/server/v2/types"
 )
 
-func NewRouter(options types.HttpConfig) *HttpEngine {
+func NewRouter(options *types.HttpConfig) *HttpEngine {
 	if options.EventBus == nil {
 		options.EventBus = event.NewEvent()
 	}

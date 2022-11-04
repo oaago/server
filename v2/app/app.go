@@ -26,10 +26,8 @@ func (app *Application) Create() *types.Application {
 	if app.LifeCycle.BeforeLoadRouter != nil {
 		app.LifeCycle.BeforeLoadRouter()
 	}
-	httpOptions := types.HttpConfig{
-		Port:     op.ConfigData.Server.Port,
-		EventBus: app.EventBus,
-	}
+	httpOptions := app.Options
+	httpOptions.Port = op.ConfigData.Server.Port
 	httpRouter := core.NewRouter(httpOptions)
 	if app.LifeCycle.AfterLoadRouter != nil {
 		app.LifeCycle.AfterLoadRouter()

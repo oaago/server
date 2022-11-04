@@ -20,6 +20,7 @@ type Application struct {
 	EventBus  Event
 	LifeCycle LifeCycleType
 	*HttpEngine
+	Options   *HttpConfig
 	RpcEngine interface{}
 	Start     func()
 }
@@ -42,7 +43,7 @@ var HttpCode = make(map[int]interface{})
 
 type HttpEngine struct {
 	Router  *gin.Engine
-	Options HttpConfig
+	Options *HttpConfig
 }
 
 type Plugin interface {
