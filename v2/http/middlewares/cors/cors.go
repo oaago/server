@@ -2,23 +2,32 @@ package cors
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/oaago/cloud/op"
 	"net/http"
 )
 
 func Cors(allowOrigin string) gin.HandlerFunc {
-	return func(c *gin.Context) {
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:8849")
-		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
-		c.Writer.Header().Set("Access-Control-Allow-Headers", "Accept, Authorization, Content-Type, Content-Length, X-CSRF-Token, Token, session, Origin, Host, Connection, Accept-Encoding, Accept-Language, X-Requested-With")
-
-		if c.Request.Method == http.MethodOptions {
-			c.AbortWithStatus(http.StatusNoContent)
+	return func(context *gin.Context) {
+		Origin := context.Writer.Header().Get("Access-Control-Allow-Origin")
+		if Origin == "*" {
 			return
+		} else {
+			for _, v := range op.ConfigData.Server.Cors {
+				if context.Request.Host == v {
+					allowOrigin = "*"
+					continue
+				}
+			}
+			method := context.Request.Method
+			context.Header("Access-Control-Allow-Origin", allowOrigin)
+			context.Header("Access-Control-Allow-Headers", "Content-Type,AccessToken,X-CSRF-Token, Authorization, Token")
+			context.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, UPDATE, DELETE")
+			context.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type")
+			context.Header("Access-Control-Allow-Credentials", "true")
+			if method == "OPTIONS" {
+				context.AbortWithStatus(http.StatusNoContent)
+			}
 		}
-
-		c.Request.Header.Del("Origin")
-
-		c.Next()
+		context.Next()
 	}
 }

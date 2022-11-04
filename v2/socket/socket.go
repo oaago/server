@@ -5,7 +5,6 @@ import (
 	socketio "github.com/googollee/go-socket.io"
 	"github.com/oaago/cloud/logx"
 	"github.com/oaago/cloud/op"
-	"github.com/oaago/server/v2/http/middlewares/cors"
 	"github.com/olahol/melody"
 )
 
@@ -13,7 +12,6 @@ func InitSocket(r *gin.Engine) {
 	if op.ConfigData.Socket.Enable != true {
 		return
 	}
-	r.Use(cors.Cors("*"))
 	if op.ConfigData.Socket.Types == "socketio" {
 		baseUrl := op.ConfigData.Socket.BaseUrl
 		socket := socketio.NewServer(nil)

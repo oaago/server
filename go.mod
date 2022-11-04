@@ -14,7 +14,7 @@ require (
 	github.com/googollee/go-socket.io v1.6.2
 	github.com/hashicorp/go-uuid v1.0.3
 	github.com/jinzhu/copier v0.3.5
-	github.com/oaago/cloud v0.1.9
+	github.com/oaago/cloud v0.1.10
 	github.com/oaago/gateway v0.0.0-20220619080224-02555976e8ac
 	github.com/olahol/melody v1.1.1
 	github.com/pterm/pterm v0.12.41

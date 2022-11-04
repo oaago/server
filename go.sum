@@ -395,8 +395,8 @@ github.com/natefinch/lumberjack v2.0.0+incompatible/go.mod h1:Wi9p2TTF5DG5oU+6Yf
 github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e/go.mod h1:zD1mROLANZcx1PVRCS0qkT7pwLkGfwJo4zjcN/Tysno=
 github.com/nxadm/tail v1.4.8 h1:nPr65rt6Y5JFSKQO7qToXr7pePgD6Gwiw05lkbyAQTE=
 github.com/nxadm/tail v1.4.8/go.mod h1:+ncqLTQzXmGhMZNUePPaPqPvBxHAIsmXswZKocGu+AU=
-github.com/oaago/cloud v0.1.9 h1:0omObMtCeRT3lZLan84+pxhvat0zjyWFQF+m3l/OKzg=
-github.com/oaago/cloud v0.1.9/go.mod h1:zl4KPgJ7mQ7aik8VQYNuP1NMwvyPbQ6+pKzV1pTBgdc=
+github.com/oaago/cloud v0.1.10 h1:1yJsnkplfnFMResVpr29Ja0o6I5oGh9AEiaH1HdblxA=
+github.com/oaago/cloud v0.1.10/go.mod h1:zl4KPgJ7mQ7aik8VQYNuP1NMwvyPbQ6+pKzV1pTBgdc=
 github.com/oaago/common v0.0.0-20220619090039-63184afcc085 h1:vLTpcbDiZ0/Zwn8XsUMFl5+DL1cKx0DXCM3nnbH/zJE=
 github.com/oaago/common v0.0.0-20220619090039-63184afcc085/go.mod h1:Btu0RqVVrM1gi4OyH+50I8mekw1d4J1RpfBpyFt8iBU=
 github.com/oaago/gateway v0.0.0-20220619080224-02555976e8ac h1:qElJE3VIZUhtBHCkSahO1gNLn0YpXMSvF66DBIRsJa0=
