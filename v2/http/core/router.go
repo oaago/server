@@ -3,6 +3,7 @@ package core
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/oaago/server/v2/http/event"
+	"github.com/oaago/server/v2/http/middlewares/cors"
 	"github.com/oaago/server/v2/types"
 )
 
@@ -12,6 +13,7 @@ func NewRouter(options *types.HttpConfig) *HttpEngine {
 	}
 	options.EventBus.Publish("initRouter")
 	r := gin.New()
+	r.Use(cors.Cors("*"))
 	// 装载全局中间件以及拦截器，拦截器等同于全局中间件
 	options.GlobalMiddleware = append(options.GlobalMiddleware, options.Interceptor...)
 	for _, handlerType := range options.GlobalMiddleware {
