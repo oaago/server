@@ -26,6 +26,9 @@ func (app *Application) Create() *types.Application {
 	if app.LifeCycle.BeforeLoadRouter != nil {
 		app.LifeCycle.BeforeLoadRouter()
 	}
+	if app.Options == nil {
+		app.Options = &types.HttpConfig{}
+	}
 	httpOptions := app.Options
 	httpOptions.Port = op.ConfigData.Server.Port
 	httpRouter := core.NewRouter(httpOptions)
