@@ -9,12 +9,12 @@ import (
 func Cors(allowOrigin string) gin.HandlerFunc {
 	return func(context *gin.Context) {
 		Origin := context.Writer.Header().Get("Access-Control-Allow-Origin")
-		if Origin == "*" {
+		if Origin == "*" || len(op.ConfigData.Server.Cors) == 0 {
 			return
 		} else {
 			for _, v := range op.ConfigData.Server.Cors {
 				if context.Request.Host == v {
-					allowOrigin = "*"
+					allowOrigin = context.Request.Host
 					continue
 				}
 			}
