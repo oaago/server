@@ -3,9 +3,15 @@ package socket
 import (
 	"github.com/gin-gonic/gin"
 	socketio "github.com/googollee/go-socket.io"
+	"github.com/googollee/go-socket.io/engineio"
+	"github.com/googollee/go-socket.io/engineio/transport"
+	"github.com/googollee/go-socket.io/engineio/transport/polling"
+	"github.com/googollee/go-socket.io/engineio/transport/websocket"
 	"github.com/oaago/cloud/logx"
 	"github.com/oaago/cloud/op"
 	"github.com/olahol/melody"
+	"net/http"
+	"time"
 )
 
 func InitSocket(r *gin.Engine) {
@@ -14,7 +20,26 @@ func InitSocket(r *gin.Engine) {
 	}
 	if op.ConfigData.Socket.Types == "socketio" {
 		baseUrl := op.ConfigData.Socket.BaseUrl
-		socket := socketio.NewServer(nil)
+		socketConfig := &engineio.Options{
+			PingTimeout:  7 * time.Second,
+			PingInterval: 5 * time.Second,
+			Transports: []transport.Transport{
+				&polling.Transport{
+					Client: &http.Client{
+						Timeout: time.Minute,
+					},
+					CheckOrigin: func(r *http.Request) bool {
+						return true
+					},
+				},
+				&websocket.Transport{
+					CheckOrigin: func(r *http.Request) bool {
+						return true
+					},
+				},
+			},
+		}
+		socket := socketio.NewServer(socketConfig)
 		r.GET(baseUrl, gin.WrapH(socket))
 		r.POST(baseUrl, gin.WrapH(socket))
 	} else if op.ConfigData.Socket.Types == "ws" {
