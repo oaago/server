@@ -10,6 +10,10 @@ func main() {
 	op := &types.HttpConfig{
 		Host: "0.0.0.0",
 		Port: 8088,
+		HttpCode: map[int]interface{}{
+			21: "shishi",
+			22: "shishijiushishi",
+		},
 	}
 	http := core.NewRouter(op)
 	router.LoadRouter(http)

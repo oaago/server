@@ -57,7 +57,7 @@ func (h *HttpEngine) Start() {
 	server := endless.NewServer(h.Options.Host+":"+strconv.Itoa(h.Options.Port), h.Router)
 	server.BeforeBegin = func(add string) {
 		h.Options.EventBus.Publish("BeforeStartServer")
-		if types.App.LifeCycle.BeforeAppStart != nil {
+		if types.App != nil && types.App.LifeCycle.BeforeAppStart != nil {
 			types.App.LifeCycle.BeforeAppStart()
 		}
 		log.Printf("Actual pid is %d", syscall.Getpid())

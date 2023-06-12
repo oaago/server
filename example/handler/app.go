@@ -2,9 +2,15 @@ package handler
 
 import (
 	"fmt"
-	v2 "github.com/oaago/server/v2/http/core"
+	"github.com/oaago/server/v2/types"
 )
 
-func App(c *v2.Context) {
+type T struct {
+	Name string `json:"name"`
+	Id   int    `json:"id"`
+}
+
+func App(c *types.Context) {
 	fmt.Println("v2")
+	c.Return(21)
 }

@@ -25,11 +25,20 @@ func (c *Context) Return(arg ...interface{}) {
 	if HttpCode[code] != nil {
 		message = HttpCode[code]
 	}
-	c.JSON(code, ReturnType{
-		Code:    code,
-		Message: message,
-		Data:    data,
-	})
+	// 简单处理一下 http code
+	if code > 200 {
+		c.JSON(code, ReturnType{
+			Code:    code,
+			Message: message,
+			Data:    data,
+		})
+	} else {
+		c.JSON(200, ReturnType{
+			Code:    code,
+			Message: message,
+			Data:    data,
+		})
+	}
 	c.Abort()
 }
 
