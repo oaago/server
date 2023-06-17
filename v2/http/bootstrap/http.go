@@ -1,4 +1,4 @@
-package core
+package bootstrap
 
 import (
 	"github.com/fvbock/endless"

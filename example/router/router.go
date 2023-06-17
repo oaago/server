@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/oaago/server/example/handler"
-	core "github.com/oaago/server/v2/http/core"
+	core "github.com/oaago/server/v2/http/bootstrap"
 )
 
 func LoadRouter(http *core.HttpEngine) {

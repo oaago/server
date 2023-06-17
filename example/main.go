@@ -2,12 +2,12 @@ package main
 
 import (
 	"github.com/oaago/server/example/router"
-	"github.com/oaago/server/v2/http/core"
-	"github.com/oaago/server/v2/types"
+	"github.com/oaago/server/v2/app"
+	"github.com/oaago/server/v2/http/bootstrap"
 )
 
 func main() {
-	op := &types.HttpConfig{
+	op := &app.HttpConfig{
 		Host: "0.0.0.0",
 		Port: 8088,
 		HttpCode: map[int]interface{}{
@@ -15,7 +15,7 @@ func main() {
 			22: "shishijiushishi",
 		},
 	}
-	http := core.NewRouter(op)
+	http := bootstrap.NewRouter(op)
 	router.LoadRouter(http)
 	http.Start()
 }
