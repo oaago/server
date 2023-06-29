@@ -4,7 +4,6 @@ import (
 	evbus "github.com/asaskevich/EventBus"
 	"github.com/gin-gonic/gin"
 	"github.com/oaago/cloud/op"
-	"github.com/oaago/server/v2/app"
 	"time"
 )
 
@@ -12,6 +11,19 @@ type Event evbus.Bus
 type BusPublisher evbus.BusPublisher
 type BusSubscriber evbus.BusSubscriber
 type BusController evbus.BusController
+
+type HttpConfig struct {
+	Middleware       Middleware
+	GlobalMiddleware []func(ctx *Context)
+	Host             string
+	Port             int
+	Name             string
+	HttpCode         map[int]interface{}
+	BaseUrl          string
+	Plugins          []Plugin
+	EventBus         Event
+	Interceptor      []func(ctx *Context)
+}
 
 type Application struct {
 	AppId     string
@@ -21,7 +33,7 @@ type Application struct {
 	EventBus  Event
 	LifeCycle LifeCycleType
 	*HttpEngine
-	Options   *app.HttpConfig
+	Options   *HttpConfig
 	RpcEngine interface{}
 	Start     func()
 }
@@ -44,7 +56,7 @@ var HttpCode = make(map[int]interface{})
 
 type HttpEngine struct {
 	Router  *gin.Engine
-	Options *app.HttpConfig
+	Options *HttpConfig
 }
 
 type Plugin interface {

@@ -10,18 +10,6 @@ import (
 )
 
 type Application types.Application
-type HttpConfig struct {
-	Middleware       types.Middleware
-	GlobalMiddleware []func(ctx *types.Context)
-	Host             string
-	Port             int
-	Name             string
-	HttpCode         map[int]interface{}
-	BaseUrl          string
-	Plugins          []types.Plugin
-	EventBus         types.Event
-	Interceptor      []func(ctx *types.Context)
-}
 
 func (app *Application) Create() *types.Application {
 	app.EventBus = event.NewEvent()
@@ -39,7 +27,7 @@ func (app *Application) Create() *types.Application {
 		app.LifeCycle.BeforeLoadRouter()
 	}
 	if app.Options == nil {
-		app.Options = &HttpConfig{}
+		app.Options = &types.HttpConfig{}
 	}
 	httpOptions := app.Options
 	httpOptions.Port = op.ConfigData.Server.Port
