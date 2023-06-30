@@ -1,6 +1,7 @@
 package bootstrap
 
 import (
+	"fmt"
 	"github.com/fvbock/endless"
 	"github.com/oaago/cloud/logx"
 	"github.com/oaago/server/v2/http/translator"
@@ -51,6 +52,7 @@ func (h *HttpEngine) Start() {
 	}
 	types.HttpCode = h.Options.HttpCode
 	go func() {
+		fmt.Println(h.Options.Host+":"+strconv.Itoa(h.Options.Port), "服务启动成功")
 		h.Options.EventBus.Publish("startEnd")
 	}()
 	socket.InitSocket(h.Router)
@@ -65,6 +67,7 @@ func (h *HttpEngine) Start() {
 	e := server.ListenAndServe()
 	if e != nil {
 		go func() {
+			fmt.Println(h.Options.Host+":"+strconv.Itoa(h.Options.Port), "服务启动失败")
 			h.Options.EventBus.Publish("startError")
 		}()
 		logx.Logger.Error(e.Error())
